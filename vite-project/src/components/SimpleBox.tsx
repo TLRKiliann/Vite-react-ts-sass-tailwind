@@ -1,6 +1,14 @@
 import './SimpleBox.scss'
 
-const SimpleBox = () => {
+interface Props {
+  name: string;
+  passwd: string;
+  handleChangeName: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangePasswd: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+};
+
+const SimpleBox = (props: Props) => {
   return(
     <div>
       <div className="title--box">
@@ -9,39 +17,48 @@ const SimpleBox = () => {
           Login
         </p>
 
-        <div className="w-60 py-8 mx-auto bg-violet-800 rounded-xl">
-          <form className="flex flex-col mx-auto w-48">
+        <div className="w-60 py-4 mx-auto bg-violet-800
+          rounded-lg shadow-white-300">
+          <form
+            className="flex flex-col mx-auto w-48"
+            onSubmit={props.handleSubmit}
+          >
 
             <label htmlFor="usr">Username</label>
             <input
-              className="p-1 w-48"
+              className="p-1 w-48 text-cyan-900"
               type="text"
               id="usr"
               name="usr"
+              value={props.name}
+              onChange={props.handleChangeName}
               placeholder="username"
               autoComplete="off"
-            />
-            
-            <label htmlFor="email">Email</label>
-            <input
-              className="p-1 w-48"
-              type="email"
-              id="email"
-              name="email"
-              placeholder="email"
             />
 
             <label htmlFor="passwd">Password</label>
             <input
-              className="p-1 w-48"
+              className="p-1 w-48 text-cyan-900"
               type="password"
+              data-testid="inputid"
               id="password"
               name="password"
+              value={props.passwd}
+              onChange={props.handleChangePasswd}
               placeholder="password"
             />
+            <button type="submit" className="inline-block px-6 py-2.5
+              mt-6 bg-blue-600 text-white font-medium text-xs leading-tight
+              uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg
+              focus:bg-blue-700 focus:shadow-lg focus:outline-none 
+              focus:ring-0 active:bg-blue-800 active:shadow-lg transition 
+              duration-150 ease-in-out">
+              Enter
+            </button>
 
           </form>
         </div>
+
       </div>
     </div>
   )
