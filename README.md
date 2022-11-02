@@ -106,3 +106,9 @@ They ask you normaly if you want to install c8 => yes !
 Look at this page for more explanations :
 
 https://vitest.dev/guide/coverage.html
+
+Snapshot :
+
+└─ $ ▶ npm install --save-dev react-test-renderer
+
+Look at my NameOfFile.test.tsx
