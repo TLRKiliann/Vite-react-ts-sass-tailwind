@@ -17,6 +17,44 @@ test('calls change handler for an input name', () => {
   expect(handleChangeName).toHaveBeenCalledTimes(1)
 });
 
+test('calls handleSubmit', () => {
+  const beverage = {name: 'name'}
+  const handleSubmit = vi.fn(beverage => beverage.name);
+  render(<SimpleBox />)
+  fireEvent.change(screen.getByTestId('usrname-input'))
+  expect(handleSubmit).toHaveBeenCalledTimes(0)
+});
+
+it("captures click from App", async() => {
+  function handleSubmit(evt) {
+    expect(evt.target.value).toEqual("btnclick");
+  }
+  const { getByTestId } = render(
+    <SimpleBox onChange={handleSubmit} data-testid="Button" />
+    );
+  const node = getByTestId("Button");
+  fireEvent.click(node, { target: { value: "btnclick" } });
+});
+
+
+//(nothing has changed in test results)
+test('handleSubmit returns name + password', () => {
+  const littleVar = {name: "ok", passwd: false};
+  const handleSubmit = vi.fn(littleVar => littleVar.name);
+  handleSubmit(littleVar);
+  expect(handleSubmit).toHaveReturnedWith('ok');
+});
+
+
+
+test('handlechangeName returns string', () => {
+  const beverage3 = {name: 'presentstring'};
+  const handlechangeName = vi.fn(beverage3 => beverage3.name);
+  handlechangeName(beverage3);
+  expect(handlechangeName).toHaveReturnedWith('presentstring');
+  expect(handlechangeName).toHaveBeenCalledTimes(1)
+});
+
 test('calls change handler for an input password', () => {
   const handleChangePasswd = vi.fn()
   const {container} = render(<input onChange={handleChangePasswd} />)
@@ -27,7 +65,7 @@ test('calls change handler for an input password', () => {
 
 test('calls onClick prop when clicked enter', () => {
   const handleSubmit = vi.fn()
-  render(<App />)
+  render(<SimpleBox />)
   fireEvent.click(screen.getByTestId('Button'))
   expect(handleSubmit).toHaveBeenCalledTimes(0)
 });
