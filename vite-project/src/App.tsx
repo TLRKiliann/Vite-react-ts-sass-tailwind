@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import SimpleBox from './components/SimpleBox'
-import reactLogo from './assets/react.svg'
+//import reactLogo from './assets/react.svg'
 import './App.scss'
 
 const App:React.FC = () => {

@@ -17,8 +17,8 @@ const SimpleBox = (props: Props) => {
           Login
         </p>
 
-        <div className="w-60 py-4 mx-auto bg-violet-800
-          rounded-lg shadow-white-300">
+        <div className="w-60 mx-auto bg-violet-800
+          rounded-lg p-4 shadow-[0px_0px_60px_4px_rgba(255,0,255,0.56)]">
           <form
             className="flex flex-col mx-auto w-48"
             onSubmit={props.handleSubmit}
@@ -28,6 +28,7 @@ const SimpleBox = (props: Props) => {
             <input
               className="p-1 w-48 text-cyan-900"
               type="text"
+              data-testid="usrname-input"
               id="usr"
               name="usr"
               value={props.name}
@@ -47,7 +48,7 @@ const SimpleBox = (props: Props) => {
               onChange={props.handleChangePasswd}
               placeholder="password"
             />
-            <button type="submit" className="inline-block px-6 py-2.5
+            <button data-testid='Button' type="submit" className="inline-block px-6 py-2.5
               mt-6 bg-blue-600 text-white font-medium text-xs leading-tight
               uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg
               focus:bg-blue-700 focus:shadow-lg focus:outline-none 

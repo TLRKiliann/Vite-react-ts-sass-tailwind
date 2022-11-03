@@ -1,17 +1,58 @@
+import React from 'react';
 import {describe, expect, test, it, vi} from 'vitest';
 import {render, screen, fireEvent} from '@testing-library/react';
 //import {create} from 'react-test-renderer';
 import App from '../App.tsx';
 import SimpleBox from '../App.tsx';
+import handleChangeName from '../App.tsx';
 import handleChangePasswd from '../App.tsx';
 import handleSubmit from '../App.tsx';
 
+
+test('calls change handler for an input name', () => {
+  const handleChangeName = vi.fn()
+  const {container} = render(<input onChange={handleChangeName} />)
+  const input = container.firstChild
+  fireEvent.change(input, {target: {value: 'name'}})
+  expect(handleChangeName).toHaveBeenCalledTimes(1)
+});
+
+test('calls change handler for an input password', () => {
+  const handleChangePasswd = vi.fn()
+  const {container} = render(<input onChange={handleChangePasswd} />)
+  const input = container.firstChild
+  fireEvent.change(input, {target: {value: 'pass'}})
+  expect(handleChangePasswd).toHaveBeenCalledTimes(1) //or toHaveReturned();
+});
+
+test('calls onClick prop when clicked enter', () => {
+  const handleSubmit = vi.fn()
+  render(<App />)
+  fireEvent.click(screen.getByTestId('Button'))
+  expect(handleSubmit).toHaveBeenCalledTimes(0)
+});
+
+test('handleSubmit returns Un truc', () => {
+  const beverage = {name: 'Un truc'};
+  const handleSubmit = vi.fn(beverage => beverage.name);
+  handleSubmit(beverage);
+  expect(handleSubmit).toHaveReturnedWith('Un truc');
+});
+
+
+test('calls onClick prop when clicked enter', () => {
+  const beverage = {name: 'name'}
+  const handleSubmit = vi.fn(beverage => beverage.name)
+  render(<App />)
+  fireEvent.change(screen.getByTestId('usrname-input'))
+  expect(handleSubmit).toHaveBeenCalledTimes(0)
+});
 
 test('render h2 by role', () => {
   render(<App />);
   const myHeader = screen.getAllByRole("heading", 1);
   expect(myHeader.length).toBe(1);
-})
+});
 
 //Function handleSubmit
 test('handleSubmit function', () => {
@@ -75,7 +116,7 @@ test('multiple useState', () => {
   console.log(myMock2.mock.contexts);
 });
 
-test('handleSubmit returns id', () => {
+test('handleSubmit returns name', () => {
   const littleVar = {name: "tester"};
   const handleSubmit = vi.fn(littleVar => littleVar.name);
   handleSubmit(littleVar);
