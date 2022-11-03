@@ -39,10 +39,10 @@ it("captures click from App", async() => {
 
 //(nothing has changed in test results)
 test('handleSubmit returns name + password', () => {
-  const littleVar = {name: "ok", passwd: false};
-  const handleSubmit = vi.fn(littleVar => littleVar.name);
+  const littleVar = {name: "ok", passwd: "123"};
+  const handleSubmit = vi.fn(littleVar => littleVar.name, littleVar.passwd);
   handleSubmit(littleVar);
-  expect(handleSubmit).toHaveReturnedWith('ok');
+  expect(handleSubmit).toHaveReturnedWith("ok", "123");
 });
 
 
@@ -112,6 +112,7 @@ test('handleSubmit returns Un truc', () => {
 
 //Function handleChangePasswd
 test('handleChangePasswd function', () => {
+    const handleChangePasswd = vi.fn();
     expect(handleChangePasswd).toBeDefined();
 });
 
